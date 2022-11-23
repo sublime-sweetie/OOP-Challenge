@@ -1,6 +1,7 @@
 const inquirer= require('inquirer')
 const jest= require('jest')
 const fs = require("fs");
+const generateHTML = require('./generateHTML');
 
 const questions= [
     {
@@ -117,9 +118,33 @@ function writeToFile(fileName, data) {
       }
 function init() {
     inquirer.prompt(questions).then(response =>{ 
-      writeToFile('index.html', generateMarkdown(response))
+      writeToFile('index.html', generateHTML(response))
       console.log('Successfully created a new team list!')
     })
   }
   // Function call to initialize app
   init();
+  function generateHTML(name, id, github, ) {
+    return  `<!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta http-equiv="X-UA-Compatible" content="ie=edge">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+      <title>Document</title>
+    </head>
+    <body>
+      <div class="jumbotron jumbotron-fluid">
+      <div class="container">
+        <h1 class="display-4"> ${name}</h1>
+        <h2 class="display-4"> ${id}</h2>
+        <h3>Example heading <span class="badge badge-secondary">Contact Me</span></h3>
+        <ul class="list-group">
+          <li class="list-group-item">My GitHub username is ${github}</li>
+          <li class="list-group-item">My email address is ${email}</li>
+        </ul>
+      </div>
+    </div>
+    </body>
+    </html>`;
+  }
